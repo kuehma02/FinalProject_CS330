@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="text-center border-bottom">
+    <h1>Planner</h1>
+</div>
+<div class="p-3">
+    <form id="planner-list">
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label for="class">Class</label>
+                <select id="class" name="class" class="custom-select">
+                    <option>Math</option>
+                    <option>Computer Science</option>
+                    <option>Chemistry</option>
+                    <option>Paideia</option>
+                    <option>Spanish</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group col-md-4">
+            <label for="assignment">Assignment</label>
+            <input type="text" id="assignment" name="assignment" class="form-control">
+        </div>
+        <div class="form-group col-md-4">
+            <label for="assignment">Assignment</label>
+            <input type="text" id="assignment" name="assignment" class="form-control">
+        </div>
+        <div class="form-group col-md-4">
+            <label for="dueDate">Due Date</label>
+            <input type="text" id="dueDate" name="dueDate" class="form-control">
+        </div>
+    </form>
+</div>
+
+{% endblock %}
+
