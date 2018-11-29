@@ -12,6 +12,7 @@ app = Flask(__name__)
 def index():
     if request.method == "GET":
         return render_template("index.html")
+        #return redirect(url_for('index.html'))
     if request.form.get("addRow"):
         pass
 
