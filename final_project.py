@@ -19,5 +19,7 @@ def classes():
     all_classes = get_data_from_db("select code, name from classes;")
     
 
+def 
+
 if __name__ == '__main__':
     app.run()
