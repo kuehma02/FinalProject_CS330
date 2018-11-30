@@ -29,14 +29,14 @@ def index():
     if request.method == "GET":
         # Pass in the stuff into Jinga templates to get course names on the 
         res = db_session.query(Class).all()
-        for artist in res:
-            print(artist)
+        for course in res:
+            print(course)
         return render_template("index.html")
     if request.form.get("addRow"):
         pass
 
 @app.route('/results')
-def something():
+def table():
     pass
 
  
