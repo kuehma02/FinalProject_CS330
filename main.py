@@ -8,6 +8,8 @@ from flask import send_from_directory, jsonify, render_template
 
 from models import Class, Assignment, Grade
 
+from sqlalchemy.sql import select
+
 init_db()
 
 #Class.__table__.drop(engine)
@@ -44,24 +46,40 @@ db_session.commit()
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    if request.method == "GET":
-        # Pass in the stuff into Jinga templates to get course names on the 
-        res = db_session.query(Class).all()
-        for course in res:
-            print(course)
-        return render_template("index.html")
-    if request.form.get("addRow"):
-        pass
+    all_classes = db_session.query(Class).all()
+    options = []
+    for row in all_classes:
+        options.append((row.id, row.name))
 
-@app.route('/results')
+    if request.form.get("class"):
+            course = request.form.get('class')
+            query = db_session.query(Class).filter_by(id=course).first()
+            name = query.name
+            prof = query.professor
+            time = query.time
+            duedate = request.form.get('dueDate')
+            assignment = request.form.get('assignment')
+            result = [[name, prof, time, assignment, duedate]]
+            return render_template("index.html", options=options, results = result)
+
+    return render_template("index.html", options=options)
+
+    #Getting information to create table
+
+        # return redirect(url_for("table", results=result))
+
+@app.route('/results', methods=['GET', 'POST'])
 def table():
-    pass
+    if request.method == "POST":
+        
+        return redirect(url_for('index'))
+
 
  
  
-@app.route('/')
-def test():
-    return "Welcome to Flask!"
+# @app.route('/')
+# def test():
+#     return "Welcome to Flask!"
  
 if __name__ == '__main__':
     app.run()

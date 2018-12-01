@@ -6,12 +6,12 @@
     <h1>Planner</h1>
 </div>
 <div class="p-3">
-    <form id="planner-list">
+    <form id="planner-list" action="/" method="POST">
         <div class="form-row">
             <div class="form-group col-md-4">
                 <label for="class">Class</label>
                 <select id="class" name="class" class="custom-select">
-                    { %for o in options %}
+                    {% for o in options %}
                     <option value="{{o[0]}}">{{o[1]}}</option>
                     {% endfor %}
                 </select>
@@ -27,26 +27,35 @@
         </div> 
         <button type="submit" class="btn btn-primary">Add</button>
     </form>
-
-        <table id="plannerTable" class='table table-bordered text-center mt-3 mb-3 ml-0'>
-            <thead class="thead-dark" id="head">
-                <tr>
-                    <th>Class</th>
-                    <th>Professor</th>
-                    <th>Time</th>
-                    <th>Assignment</th>
-                    <th>Grade</th>
-                </tr>
-            </thead>
-            <tbody id='maketable'>
-
-            </tbody>
-        </table>
+</div>
+<div class="container">
+    <table id="plannerTable" class='table table-bordered text-center mt-3 mb-3 ml-0'>
+        <thead class="thead-dark" id="head">
+            <tr>
+                <th>Class</th>
+                <th>Professor</th>
+                <th>Time</th>
+                <th>Assignment</th>
+                <th>Due Date</th>
+                <th>Grade</th>
+            </tr>
+        </thead>
+        <tbody id='maketable'>
+            {% for r in results %}
+            <tr>
+                <td>{{ r[0] }}</td>
+                <td>{{ r[1] }}</td>
+                <td>{{ r[2] }}</td>
+                <td>{{ r[3] }}</td>
+                <td>{{ r[4] }}</td>
+                <td><input type="text" placeholder="Enter Grade" id='grade'></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </div>
 
-{% block results %}
-
 {% endblock %}
 
-{% endblock %}
+
 
