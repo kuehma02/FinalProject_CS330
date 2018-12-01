@@ -11,11 +11,9 @@
             <div class="form-group col-md-4">
                 <label for="class">Class</label>
                 <select id="class" name="class" class="custom-select">
-                    <option>Math</option>
-                    <option>Computer Science</option>
-                    <option>Chemistry</option>
-                    <option>Paideia</option>
-                    <option>Spanish</option>
+                    { %for o in options %}
+                    <option value="{{o[0]}}">{{o[1]}}</option>
+                    {% endfor %}
                 </select>
             </div>
             <div class="form-group col-md-4">

@@ -14,22 +14,23 @@ init_db()
 #new_class = Class('CS330', "Internet Programming", "Roman Yasinovskyy", "TH 12:45-2:15")
 #We should create a txt file that has a list of these objects
 
+db.create_all()
 
+# db_list = []
 
-db_list = []
-with open('classfile', 'r') as file:
-    for line in file:
-        course_lst = line.strip().split(',')
-        db_list.append(course_lst)
+# with open('classfile', 'r') as file:
+#     for line in file:
+#         course_lst = line.strip().split(',')
+#         db_list.append(course_lst)
 # print(db_list)
 
 
-for course in db_list:
-    # print(course[0])
-    new_class = Class(course[0], course[1], course[2], course[3])
-    db_session.add(new_class)
+# for course in db_list:
+#     print(course[0])
+#     new_class = Class(course[0], course[1], course[2], course[3])
+#     db_session.add(new_class)
 
-db.create_all()
+
 
 #db_session.add(new_class)
 #res = db_session.query(Class).filter(Class.name=="Internet Programming").first()
