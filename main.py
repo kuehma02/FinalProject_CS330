@@ -58,11 +58,11 @@ rows = []
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    all_assignment = db_session.query(Assignment).all()
-    for row in all_assignment:
-        print(row)
     
-    
+    all_classes = db_session.query(Class).all()
+    options = []
+    for row in all_classes:
+        options.append((row.id, row.name))
     
     if request.method == "GET":
         return render_template("index.html", options = options)
