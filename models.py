@@ -20,16 +20,20 @@ class Assignment(db.Model):
     __tablename__ = 'assignments'
     id = db.Column(db.Integer, primary_key=True, nullable=False)
     name = db.Column(db.String)
-    due_date = db.Column(db.DateTime)
  
     class_id = db.Column(db.Integer, db.ForeignKey("classes.id"))
-    course = db.relationship("Class", backref=db.backref(
-        "coursename", order_by=id))
-        
+    
+    
+    def __init__(self, id, name, class_id):
+        self.id=id
+        self.name=name
+        self.class_id=class_id
+
+    def __repr__(self):
+        return "Id: {}, Assignment Name: {}, Class For: {}".format(self.id, self.name, self.class_id)
 
 class Grade(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     grade = db.Column(db.Integer)
 
     assignment_id = db.Column(db.Integer, db.ForeignKey('assignments.id'))
-    assignment = db.relationship('Assignment', backref=db.backref('grade', uselist=False))

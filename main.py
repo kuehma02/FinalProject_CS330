@@ -15,7 +15,7 @@ init_db()
 #Class.__table__.drop(engine)
 #new_class = Class('CS330', "Internet Programming", "Roman Yasinovskyy", "TH 12:45-2:15")
 #We should create a txt file that has a list of these objects
-
+#Assignment.__table__.drop(engine)
 db.create_all()
 
 # db_list = []
@@ -24,13 +24,28 @@ db.create_all()
 #     for line in file:
 #         course_lst = line.strip().split(',')
 #         db_list.append(course_lst)
-# print(db_list)
+#     print(db_list)
 
 
 # for course in db_list:
 #     print(course[0])
 #     new_class = Class(course[0], course[1], course[2], course[3])
 #     db_session.add(new_class)
+
+# db_list2 = []
+# with open('assignments', 'r') as file:
+#     for line in file:
+#         a_list = line.strip().split(',')
+#         db_list2.append(a_list)
+#     print(db_list2)
+
+
+# for assign in db_list2:
+#     print(assign[0])
+#     new_assign = Assignment(assign[0], assign[1], assign[2])
+#     db_session.add(new_assign)
+
+
 
 
 
@@ -47,6 +62,10 @@ rows = []
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
+    all_assignment = db_session.query(Assignment).all()
+    for row in all_assignment:
+        print(row)
+
     all_classes = db_session.query(Class).all()
     options = []
     for row in all_classes:
