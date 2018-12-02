@@ -45,10 +45,6 @@ db.create_all()
 #     new_assign = Assignment(assign[0], assign[1], assign[2])
 #     db_session.add(new_assign)
 
-
-
-
-
 #db_session.add(new_class)
 #res = db_session.query(Class).filter(Class.name=="Internet Programming").first()
 #db_session.delete(res)
@@ -65,37 +61,45 @@ def index():
     all_assignment = db_session.query(Assignment).all()
     for row in all_assignment:
         print(row)
-
-    all_classes = db_session.query(Class).all()
-    options = []
-    for row in all_classes:
-        options.append((row.id, row.name))
-
+    
+    
+    
+    if request.method == "GET":
+        return render_template("index.html", options = options)
+    
     if request.form.get("class"):
         course = request.form.get('class')
-        query = db_session.query(Class).filter_by(id=course).first()
-        name = query.name
-        prof = query.professor
-        time = query.time
-        duedate = request.form.get('dueDate')
-        assignment = request.form.get('assignment')
+        return redirect(url_for('search', courseNum = course))
 
-        result = [[name, prof, time, assignment, duedate]]
-        rows.append(result)
+        # query = db_session.query(Class).filter_by(id=course).first()
+        # name = query.name
+        # prof = query.professor
+        # time = query.time
+        # duedate = request.form.get('dueDate')
+        # assignment = request.form.get('assignment')
 
-        return render_template("index.html", options=options, results = rows)
+        # result = [[name, prof, time, assignment, duedate]]
+        # rows.append(result)
 
-    return render_template("index.html", options=options)
+        # return render_template("index.html", options=options, results = rows)
+
+    # return render_template("index.html", options=options)
 
     #Getting information to create table
 
         # return redirect(url_for("table", results=result))
 
-@app.route('/results', methods=['GET', 'POST'])
-def table():
-    if request.method == "POST":
-        
-        return redirect(url_for('index'))
+@app.route('/search/<courseNum>', methods=['GET', 'POST'])
+def search(courseNum):
+    all_classes = db_session.query(Class).all()
+    options = []
+    for row in all_classes:
+        options.append((row.id, row.name))
+
+    if request.method == "GET":
+        query = db_session.query(Class).filter_by(id=course).first()
+        print(query_)
+        #return redirect(url_for('index'))
 
 
  
