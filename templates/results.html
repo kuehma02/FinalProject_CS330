@@ -23,6 +23,7 @@
         </table>
 
         <form action="/add" methods="GET">
+            <input type="hidden" name="courseNum" value='{{course[0]}}' />
             <button type="submit" class="btn btn-primary">Add Assignment</button>
         </form>
 
@@ -32,17 +33,25 @@
                 <tr>
                     <th>Assignment Name</th>
                     <th>Grade</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody id='maketable'>
                 {% for r in results %}
                     <tr>
-                        <td>{{ r[0] }}</td>
+                        <td>{{ r }}</td>
                         <td>
                             <div id="calc">
                                 <p>{{ grade }}</p>
                                 <input placeholder="entergrade" v-model="grade.value">
                             </div>
+                        </td>
+                        <td>
+                            <form action ='/delete' method='POST'>
+                                <input type="hidden" name="course" value='{{course[0]}}'/>
+                                <input type="hidden" name="assignmentName" value='{{r}}' />
+                                <button type='submit' class="btn btn-primary">Delete</button>
+                            </form>
                         </td>
                     </tr>
                 {% endfor %}

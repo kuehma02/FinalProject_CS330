@@ -60,6 +60,7 @@ rows = []
 def index():
     all_classes = db_session.query(Class).all()
     options = []
+    db_session.commit()
     for row in all_classes:
         options.append((row.id, row.name))
     
@@ -71,7 +72,7 @@ def index():
         return redirect(url_for('search', courseNum = course))
 
 
-@app.route('/search/', methods=['GET', 'POST'])
+@app.route('/search', methods=['GET', 'POST'])
 def search():
     courseNum = request.args['courseNum']
     all_classes = db_session.query(Class).all()
@@ -86,20 +87,33 @@ def search():
         assignmentQuery = db_session.query(Assignment).filter_by(class_id = courseNum).all()
         all_assignments = []
         for row in assignmentQuery:
-            assignment = [row.name]
+            assignment = row.name
             all_assignments.append(assignment)
-        
+        db_session.commit()
         return render_template('results.html', options = options, course = courseInfo, results = all_assignments) # (url_for('index')))
 
 @app.route('/add', methods=['GET', 'POST'])
-def test():
-    if request.method == "GET":
-        return render_template("addAssignment.html")
+def add():
     
-    courseNum = request.form.get('course_num')
-    name = request.form.get('name')
-    print(courseNum)
-    print(name)
+    if request.method == "GET":
+        course_num = request.args['courseNum']
+        return render_template("addAssignment.html", course_num=course_num)
+    name = request.form.get('assignment')
+    course_num = request.form.get('courseNum')
+    db_session.add(Assignment(name=name,class_id=course_num))
+    db_session.commit()
+    return redirect(url_for('search', courseNum=course_num))
+
+@app.route('/delete', methods=['POST'])
+def delete():
+    courseNum = request.form.get('course')
+    assignmentName = request.form.get('assignmentName')
+
+    deleteAssignment = db_session.query(Assignment).filter_by(name=assignmentName, class_id = courseNum).first()
+    db_session.delete(deleteAssignment)
+    db_session.commit()
+    
+    return redirect(url_for('search', courseNum=courseNum))
  
 if __name__ == '__main__':
     app.run()
