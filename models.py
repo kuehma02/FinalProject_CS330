@@ -13,6 +13,7 @@ class Class(db.Model):
         self.name=name
         self.professor=professor
         self.time=time
+    
     def __repr__(self):
         return "Course Num: {}, Course Name: {}, Professor: {}, Time: {}".format(self.id, self.name, self.professor, self.time)
 

@@ -18,11 +18,11 @@ init_db()
 #Assignment.__table__.drop(engine)
 db.create_all()
 
-# db_list = []
+db_list = []
 
 # with open('classfile', 'r') as file:
 #     for line in file:
-#         course_lst = line.strip().split(',')
+#         course_lst = line.strip().split(', ')
 #         db_list.append(course_lst)
 #     print(db_list)
 
@@ -35,7 +35,7 @@ db.create_all()
 # db_list2 = []
 # with open('assignments', 'r') as file:
 #     for line in file:
-#         a_list = line.strip().split(',')
+#         a_list = line.strip().split(', ')
 #         db_list2.append(a_list)
 #     print(db_list2)
 
@@ -58,7 +58,7 @@ rows = []
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    
+
     all_classes = db_session.query(Class).all()
     options = []
     for row in all_classes:
@@ -89,17 +89,27 @@ def index():
 
         # return redirect(url_for("table", results=result))
 
-@app.route('/search/<courseNum>', methods=['GET', 'POST'])
-def search(courseNum):
+@app.route('/search/', methods=['GET', 'POST'])
+def search():
+    courseNum = request.args['courseNum']
     all_classes = db_session.query(Class).all()
     options = []
     for row in all_classes:
         options.append((row.id, row.name))
 
+
     if request.method == "GET":
-        query = db_session.query(Class).filter_by(id=course).first()
-        print(query_)
-        #return redirect(url_for('index'))
+        query = db_session.query(Class).filter_by(id=courseNum).first()
+        courseInfo = [query.id, query.name, query.professor, query.time]
+
+        
+        assignmentQuery = db_session.query(Assignment).filter_by(class_id = courseNum).all()
+        all_assignments = []
+        for row in assignmentQuery:
+            assignment = [row.name]
+            all_assignments.append(assignment)
+        
+        return render_template('results.html', course = courseInfo, results = all_assignments) # (url_for('index')))
 
 
  
