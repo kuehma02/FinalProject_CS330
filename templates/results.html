@@ -1,6 +1,6 @@
 {% extends "index.html" %}
 
-{% block content %}
+{% block results %}
 
 <div class="container">
         <table id="plannerTable" class='table table-bordered text-center mt-3 mb-3 ml-0'>
@@ -20,6 +20,7 @@
                     <td>{{ col[2] }}</td>
                     <td>{{ col[3] }}</td>
                 </tr>
+                {% endfor %} 
             </tbody>
         </table>
 
