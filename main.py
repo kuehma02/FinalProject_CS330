@@ -43,6 +43,7 @@ db.create_all()
 
 db_session.commit()
 
+rows = []
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -59,8 +60,11 @@ def index():
             time = query.time
             duedate = request.form.get('dueDate')
             assignment = request.form.get('assignment')
+
             result = [[name, prof, time, assignment, duedate]]
-            return render_template("index.html", options=options, results = result)
+            rows.append(result)
+
+            return render_template("index.html", options=options, results = rows)
 
     return render_template("index.html", options=options)
 

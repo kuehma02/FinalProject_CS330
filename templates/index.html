@@ -41,15 +41,17 @@
             </tr>
         </thead>
         <tbody id='maketable'>
-            {% for r in results %}
-            <tr>
-                <td>{{ r[0] }}</td>
-                <td>{{ r[1] }}</td>
-                <td>{{ r[2] }}</td>
-                <td>{{ r[3] }}</td>
-                <td>{{ r[4] }}</td>
-                <td><input type="text" placeholder="Enter Grade" id='grade'></td>
-            </tr>
+            {% for i in results %}
+                {% for r in i %}
+                <tr>
+                    <td>{{ r[0] }}</td>
+                    <td>{{ r[1] }}</td>
+                    <td>{{ r[2] }}</td>
+                    <td>{{ r[3] }}</td>
+                    <td>{{ r[4] }}</td>
+                    <td><input type="text" placeholder="Enter Grade" id='grade'></td>
+                </tr>
+                {% endfor %}
             {% endfor %}
         </tbody>
     </table>

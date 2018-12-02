@@ -25,6 +25,7 @@ class Assignment(db.Model):
     class_id = db.Column(db.Integer, db.ForeignKey("classes.id"))
     course = db.relationship("Class", backref=db.backref(
         "coursename", order_by=id))
+        
 
 class Grade(db.Model):
     id = db.Column(db.Integer, primary_key=True)
