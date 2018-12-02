@@ -101,6 +101,7 @@ def search():
     if request.method == "GET":
         query = db_session.query(Class).filter_by(id=courseNum).first()
         courseInfo = [query.id, query.name, query.professor, query.time]
+    
 
         
         assignmentQuery = db_session.query(Assignment).filter_by(class_id = courseNum).all()
@@ -109,7 +110,7 @@ def search():
             assignment = [row.name]
             all_assignments.append(assignment)
         
-        return render_template('results.html', course = courseInfo, results = all_assignments) # (url_for('index')))
+        return render_template('results.html', options = options, course = courseInfo, results = all_assignments) # (url_for('index')))
 
 
  
