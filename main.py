@@ -58,7 +58,6 @@ rows = []
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-
     all_classes = db_session.query(Class).all()
     options = []
     for row in all_classes:
@@ -71,23 +70,6 @@ def index():
         course = request.form.get('class')
         return redirect(url_for('search', courseNum = course))
 
-        # query = db_session.query(Class).filter_by(id=course).first()
-        # name = query.name
-        # prof = query.professor
-        # time = query.time
-        # duedate = request.form.get('dueDate')
-        # assignment = request.form.get('assignment')
-
-        # result = [[name, prof, time, assignment, duedate]]
-        # rows.append(result)
-
-        # return render_template("index.html", options=options, results = rows)
-
-    # return render_template("index.html", options=options)
-
-    #Getting information to create table
-
-        # return redirect(url_for("table", results=result))
 
 @app.route('/search/', methods=['GET', 'POST'])
 def search():
@@ -97,13 +79,10 @@ def search():
     for row in all_classes:
         options.append((row.id, row.name))
 
-
     if request.method == "GET":
         query = db_session.query(Class).filter_by(id=courseNum).first()
         courseInfo = [query.id, query.name, query.professor, query.time]
     
-
-        
         assignmentQuery = db_session.query(Assignment).filter_by(class_id = courseNum).all()
         all_assignments = []
         for row in assignmentQuery:
