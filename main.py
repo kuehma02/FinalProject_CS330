@@ -42,7 +42,7 @@ db_list = []
 
 # for assign in db_list2:
 #     print(assign[0])
-#     new_assign = Assignment(assign[0], assign[1], assign[2])
+#     new_assign = Assignment(name=assign[0],class_id = assign[1])
 #     db_session.add(new_assign)
 
 #db_session.add(new_class)
@@ -91,12 +91,15 @@ def search():
         
         return render_template('results.html', options = options, course = courseInfo, results = all_assignments) # (url_for('index')))
 
-
- 
- 
-# @app.route('/')
-# def test():
-#     return "Welcome to Flask!"
+@app.route('/add', methods=['GET', 'POST'])
+def test():
+    if request.method == "GET":
+        return render_template("addAssignment.html")
+    
+    courseNum = request.form.get('course_num')
+    name = request.form.get('name')
+    print(courseNum)
+    print(name)
  
 if __name__ == '__main__':
     app.run()
