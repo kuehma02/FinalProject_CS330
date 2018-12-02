@@ -10,6 +10,8 @@ from models import Class, Assignment, Grade
 
 from sqlalchemy.sql import select
 
+import os
+
 init_db()
 
 #Class.__table__.drop(engine)
@@ -72,7 +74,7 @@ def index():
         return redirect(url_for('search', courseNum = course))
 
 
-@app.route('/search', methods=['GET', 'POST'])
+@app.route('/search', methods=['GET'])
 def search():
     courseNum = request.args['courseNum']
     all_classes = db_session.query(Class).all()
@@ -90,11 +92,10 @@ def search():
             assignment = row.name
             all_assignments.append(assignment)
         db_session.commit()
-        return render_template('results.html', options = options, course = courseInfo, results = all_assignments) # (url_for('index')))
-
+        return render_template('results.html', options = options, course = courseInfo, results = all_assignments)
+     
 @app.route('/add', methods=['GET', 'POST'])
 def add():
-    
     if request.method == "GET":
         course_num = request.args['courseNum']
         return render_template("addAssignment.html", course_num=course_num)
@@ -114,6 +115,26 @@ def delete():
     db_session.commit()
     
     return redirect(url_for('search', courseNum=courseNum))
+
+'''I Think this is the kind of stuff that we have to do for the ajax stuff??'''
+
+# @app.route('/save', methods=['POST'])
+# def save():
+#     with open('file.json', 'wb') as outfile:
+#         outfile.write(request.data)
+#     return "Success"
+
+# @app.route('/get', methods=['GET'])
+# def get():
+#     if os.path.isfile('file.json'):
+#         with open('file.json', 'r') as infile:
+#             data = json.load(infile)
+#         response = jsonify(data)
+#         return response
+#     else:
+#         data = []
+#         response = jsonify(data)
+#         return response
  
 if __name__ == '__main__':
     app.run()

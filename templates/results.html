@@ -57,11 +57,12 @@
                 {% endfor %}
             </tbody>
         </table>
+        <div id="grade">
+            <button v-on:click="calculate">Calculate</button>
+        </div>
     </div>
     
-    <div id="grade">
-        <button v-on:click="calculate">Calculate</button>
-    </div>
+    
     
     <script src="https://vuejs.org/js/vue.min.js"></script>
     <script>
@@ -72,7 +73,7 @@
       },
       methods: {
         calculate: function () {
-          this.grades.push({ value: '' });
+          this.grades.push({ value: '0' });
         }
       }
     
