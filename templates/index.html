@@ -26,6 +26,8 @@
             </div>
         </div> 
         <button type="submit" class="btn btn-primary">Add</button>
+        <button onclick="removeAll()" class="btn btn-danger" id=btn_clear>Remove All</button>
+        <!-- <button type="submit" class="btn btn-primary">Clear All</button> -->
     </form>
 </div>
 <div class="container">
@@ -49,13 +51,38 @@
                     <td>{{ r[2] }}</td>
                     <td>{{ r[3] }}</td>
                     <td>{{ r[4] }}</td>
-                    <td><input type="text" placeholder="Enter Grade" id='grade'></td>
+                    <td>
+                        <div id="calc">
+                            <p>{{ grade }}</p>
+                            <input placeholder="entergrade" v-model="grade.value">
+                        </div>
+                    </td>
                 </tr>
                 {% endfor %}
             {% endfor %}
         </tbody>
     </table>
 </div>
+
+<div id="grade">
+    <button v-on:click="calculate">Calculate</button>
+</div>
+
+<script src="https://vuejs.org/js/vue.min.js"></script>
+<script>
+var calc = new Vue({
+  el: '#calc',
+  data: {
+    grades: 0
+  },
+  methods: {
+    calculate: function () {
+      this.grades.push({ value: '' });
+    }
+  }
+
+})
+</script>
 
 {% endblock %}
 

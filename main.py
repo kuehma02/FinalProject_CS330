@@ -53,18 +53,18 @@ def index():
         options.append((row.id, row.name))
 
     if request.form.get("class"):
-            course = request.form.get('class')
-            query = db_session.query(Class).filter_by(id=course).first()
-            name = query.name
-            prof = query.professor
-            time = query.time
-            duedate = request.form.get('dueDate')
-            assignment = request.form.get('assignment')
+        course = request.form.get('class')
+        query = db_session.query(Class).filter_by(id=course).first()
+        name = query.name
+        prof = query.professor
+        time = query.time
+        duedate = request.form.get('dueDate')
+        assignment = request.form.get('assignment')
 
-            result = [[name, prof, time, assignment, duedate]]
-            rows.append(result)
+        result = [[name, prof, time, assignment, duedate]]
+        rows.append(result)
 
-            return render_template("index.html", options=options, results = rows)
+        return render_template("index.html", options=options, results = rows)
 
     return render_template("index.html", options=options)
 
