@@ -3,23 +3,22 @@
 {% block content %}
 
 <div class="text-center border-bottom">
-    <h1>Planner</h1>
+    <h1>Gradebook</h1>
 </div>
-<div class="p-3">
-    <form id="planner-list" action="/" method="POST">
-        <div class="form-row">
-            <div class="form-group col-md-4">
-                <label for="class">Class</label>
+    <form id="planner-list" class="form-inline p-3" action="/" method="POST">
+        <div class="form-group mb-2">
+                <label for="class">Select a class</label>
+        </div>
+        <div class="form-group mx-sm-3 mb-2">
                 <select id="class" name="class" class="custom-select">
                     {% for o in options %}
                     <option value="{{o[0]}}">{{o[1]}}</option>
                     {% endfor %}
                 </select>
-            </div>
         </div> 
         <button type="submit" class="btn btn-primary">Search</button>
     </form>
-</div>
+
 
 
 {% endblock %}
