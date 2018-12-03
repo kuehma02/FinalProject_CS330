@@ -18,6 +18,7 @@ init_db()
 #new_class = Class('CS330', "Internet Programming", "Roman Yasinovskyy", "TH 12:45-2:15")
 #We should create a txt file that has a list of these objects
 #Assignment.__table__.drop(engine)
+#Grade.__table__.drop(engine)
 db.create_all()
 
 db_list = []
@@ -86,7 +87,9 @@ def search():
         all_assignments = []
         for row in assignmentQuery:
             assignment = row.name
-            grade = db_session.query(Grade).filter_by(assignment_id = row.id).order_by(Grade.id.desc()).first()
+            print(assignment)
+            print(row.id)
+            grade = db_session.query(Grade).filter_by(assignment_id=row.id).order_by(Grade.id.desc()).first()
             print(grade.grade)
             all_assignments.append([assignment, grade.grade, row.id])
         db_session.commit()
@@ -102,8 +105,11 @@ def add():
     newAssignment =Assignment(name=name,class_id=course_num)
     db_session.add(newAssignment)
     db_session.commit()
+    print("newassignment id is")
+    print(newAssignment.id)
     db_session.add(Grade(grade=0, assignment_id = newAssignment.id))
-    
+    db_session.commit()
+
     return redirect(url_for('search', courseNum=course_num))
 
 @app.route('/delete', methods=['POST'])
