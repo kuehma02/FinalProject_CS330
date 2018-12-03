@@ -68,6 +68,37 @@
                                 {{ r[1] }}
                             </div>
                         </td>
+<<<<<<< HEAD
+                    <td>
+                        <div>
+                            <label for="edit">Edit Grade</label>
+                            <input
+                                type="checkbox"
+                                value="Edit Grade"
+                                v-model="toggle"
+                                true-value="yes"
+                                false-value="no"
+                            >
+                            <br><br>
+                            <a href="/saveGrade">Save Grade</a>
+                        </div>
+                    </td>
+                    
+                    <td>
+                        <form action ='/delete' method='POST'>
+                            <input type="hidden" name="course" value='{{course[0]}}'/>
+                            <input type="hidden" name="assignmentName" value='{{ r[0] }}' />
+                            <button type='submit' class="btn btn-primary">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+
+        <!-- <button @click="addItem">Calculate</button>
+        <br> Grade: {{ totalGrade }} -->
+
+=======
                         <td>
                             <form action ='/delete' method='POST'>
                                 <input type="hidden" name="course" value='{{course[0]}}'/>
@@ -78,6 +109,7 @@
                     </tr>
                 {% endfor %}
             </tbody>
+>>>>>>> 440e3aeeaa7cb1320a765c87fd263b4b5107da9f
         </div>
     </table>
 </div>
@@ -85,7 +117,7 @@
     
     
 <script src="https://vuejs.org/js/vue.min.js"></script>
-<script src="results_vue.js"></script>
+<script src="../js/results_vue.js"></script>
 
 
 <!-- //  new Vue({
