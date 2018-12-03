@@ -94,9 +94,9 @@ def saveGrade():
     db_session.commit()
     return redirect(url_for('search', courseNum=request.form.get('course')))
 
-@app.route('/api/<courseName>')
-def getJSON(courseName):
-    all_assignments = db_session.query(Assignment).filter_by(class_id=courseName).all()
+@app.route('/api/<courseNum>')
+def getJSON(courseNum):
+    all_assignments = db_session.query(Assignment).filter_by(class_id=courseNum).all()
     returnList = []
     assignmentsList=[]
     for assign in all_assignments:
@@ -113,6 +113,11 @@ def getJSON(courseName):
         assignmentObject['grades'] = grades
         returnList.append(assignmentObject)
     apiDictionary = {}
+    classQuery = db_session.query(Class).filter_by(id=courseNum).first()
+    apiDictionary['course_num'] = courseNum
+    apiDictionary['course_name'] = classQuery.name
+    apiDictionary['professor'] = classQuery.professor
+    apiDictionary['time'] = classQuery.time
     apiDictionary['assignments'] = returnList
 
     return json.dumps(apiDictionary)
