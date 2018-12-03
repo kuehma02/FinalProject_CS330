@@ -87,6 +87,7 @@ def search():
         for row in assignmentQuery:
             assignment = row.name
             grade = db_session.query(Grade).filter_by(assignment_id = row.id).order_by(Grade.id.desc()).first()
+            print(grade.grade)
             all_assignments.append([assignment, grade.grade, row.id])
         db_session.commit()
         return render_template('results.html', options = options, course = courseInfo, results = all_assignments)

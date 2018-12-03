@@ -37,9 +37,9 @@
                 <th></th>
             </tr>
         </thead>
-            <tbody id="app">
+            <tbody>
                 {% for r in results %}
-                    <tr  > 
+                    <tr  id="app"> 
                         <td>{{ r[0] }}</td>
                         <td>
                             <div>
@@ -48,7 +48,6 @@
                             </div>
                         </td>
                         <td>
-                            
                             <div v-if="ok">
                                 <form action ='/saveGrade' method='POST'>
                                     <input type="text" class="form-control" name ='newGrade' placeholder="Enter Grade"/>
