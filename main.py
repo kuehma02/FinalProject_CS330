@@ -46,8 +46,6 @@ db_list = []
 #     print(assign[0])
 #     new_assign = Assignment(name=assign[0],class_id = assign[1])
 #     db_session.add(new_assign)
-
-#db_session.add(new_class)
 #res = db_session.query(Class).filter(Class.name=="Internet Programming").first()
 #db_session.delete(res)
 #res = db_session.query(Class).all()
@@ -88,11 +86,8 @@ def search():
         all_assignments = []
         for row in assignmentQuery:
             assignment = row.name
-            grade = db_session.query(Grade).filter_by(assignment_id = row.id).first()
-            print(grade)
-            all_assignments.append([assignment, grade.grade])
-            
-        print(all_assignments)
+            grade = db_session.query(Grade).filter_by(assignment_id = row.id).order_by(Grade.id.desc()).first()
+            all_assignments.append([assignment, grade.grade, row.id])
         db_session.commit()
         return render_template('results.html', options = options, course = courseInfo, results = all_assignments)
      
@@ -107,7 +102,7 @@ def add():
     db_session.add(newAssignment)
     db_session.commit()
     db_session.add(Grade(grade=0, assignment_id = newAssignment.id))
-    db_session.commit()
+    
     return redirect(url_for('search', courseNum=course_num))
 
 @app.route('/delete', methods=['POST'])
@@ -120,9 +115,14 @@ def delete():
     
     return redirect(url_for('search', courseNum=courseNum))
 
-@app.route('/editGrade', methods=['GET', 'POST'])
-def edit():
-    pass
+@app.route('/saveGrade', methods=['POST'])
+def saveGrade():
+    assignId = request.form.get('assignmentId')
+    newGrade = request.form.get('newGrade')
+    db_session.add(Grade(grade=newGrade, assignment_id = assignId))
+    db_session.commit()
+    return redirect(url_for('search', courseNum=request.form.get('course')))
+
 
 '''I Think this is the kind of stuff that we have to do for the ajax stuff??'''
 
