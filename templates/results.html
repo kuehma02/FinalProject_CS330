@@ -42,30 +42,29 @@
             {% for r in results %}
                 <tr > 
                     <td>{{ r[0] }}</td>
-                    <td >
-                        <div v-if="vm.toggle === 'yes">
-                            <input type="text" class="form-control" placeholder="Enter Grade">
-                        </div>
-                        <div v-else>
-                            <!-- display grade here -->
-                        </div>
-                    </td>
-                    <td>
-                        {{ r[1] }}
-                    </td>
                     <td>
                         <div>
                             <label for="edit">Edit Grade</label>
                             <input
-                            type="checkbox"
-                            value="Edit Grade"
-                            v-model="toggle"
-                            true-value="yes"
-                            false-value="no"
+                                type="checkbox"
+                                value="Edit Grade"
+                                v-model="toggle"
+                                true-value="yes"
+                                false-value="no"
                             >
                             <br><br>
                             <a href="/saveGrade">Save Grade</a>
                         </div>
+                    </td>
+                    <td>
+                        <div v-if="vm.toggle === 'yes">
+                            <input type="text" class="form-control" placeholder="Enter Grade">
+                        </div>
+                        <div v-else>
+                            {{ r[1] }}
+                        </div>
+                    </td>
+
                     <td>
                         <form action ='/delete' method='POST'>
                             <input type="hidden" name="course" value='{{course[0]}}'/>
@@ -87,12 +86,10 @@
     
     
 <script src="https://vuejs.org/js/vue.min.js"></script>
-    <script>
-
-    </script> 
+<script src="results_vue.js"></script>
 
 
-//  new Vue({
+<!-- //  new Vue({
 //   el: '#app',
 
 //   data: {
@@ -106,7 +103,7 @@
 //         }, 0);
 //       }, -->
 
-// created() {
+<!-- // created() {
 //     this.addItem();
 // },
 
