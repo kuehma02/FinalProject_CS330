@@ -23,7 +23,7 @@
         </table>
 
         <form action="/add" methods="GET">
-            <button type="submit" class="btn btn-primary">Search</button>
+            <button type="submit" class="btn btn-primary">Add Assignment</button>
         </form>
 
 
@@ -41,7 +41,7 @@
                         <td>
                             <div id="calc">
                                 <p>{{ grade }}</p>
-                                <input placeholder="entergrade" v-model="grade.value">
+                                <input placeholder="entergrade" v-model.number="grade">
                             </div>
                         </td>
                     </tr>
