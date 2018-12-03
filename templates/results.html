@@ -33,31 +33,22 @@
             <tr>
                 <th>Assignment Name</th>
                 <th>Grade</th>
-                <th></th>
-                <th></th>
+                <th>Edit Grade</th>
+                <th>Delete Assignment</th>
             </tr>
         </thead>
             <tbody>
                 {% for r in results %}
-                    <tr  id="app"> 
+                    <tr> 
                         <td>{{ r[0] }}</td>
+                        <td>{{ r[1] }} %</td>
                         <td>
-                            <div>
-                                <input type="checkbox" id="edit" v-model="ok">
-                                <label for="edit">Edit Grade</label>
-                            </div>
-                        </td>
-                        <td>
-                            <div v-if="ok">
-                                <form action ='/saveGrade' method='POST'>
-                                    <input type="text" class="form-control" name ='newGrade' placeholder="Enter Grade"/>
-                                    <input type='hidden' name='assignmentId' value='{{ r[2] }}'/>
-                                    <input type="hidden" name="course" value='{{course[0]}}'/>
-                                    <button type='submit' class="btn btn-primary">Save Grade</button>
-                            </div>
-                            <div v-else>
-                                {{ r[1] }}
-                            </div>
+                            <form action ='/saveGrade' method='POST'>
+                                <input type="text" class="form-control" name ='newGrade' placeholder="Enter Grade"/>
+                                <input type='hidden' name='assignmentId' value='{{ r[2] }}'/>
+                                <input type="hidden" name="course" value='{{course[0]}}'/>
+                                <button type='submit' class="btn btn-primary">Save Grade</button>
+                            </form>   
                         </td>
                         <td>
                             <form action ='/delete' method='POST'>
@@ -71,13 +62,23 @@
             </tbody>
         </div>
     </table>
+    <div id="app">
+        <div>
+            <form class='form-inline'>
+                <input type="checkbox" class="form-control-lg form-inline" id="grades" v-model="ok">
+                <label class="form-control-lg" for="grades">Show Grade</label>
+            </form>
+        </div>
+        <div v-if="ok">
+            <h3>Your current grade for {{course[1]}} is: <b>{{grade}}%</b></h3>
+        </div>
+        <div v-else>
+            <h3>Your current grade for {{course[1]}} is: <b>Grade is Hidden</b></h3>
+        </div>
+    </div>
 </div>
-    
-    
-    
+
 <script src="https://vuejs.org/js/vue.min.js"></script>
 <script src="../static/js/results_vue.js"></script>
-
-
 
 {% endblock %}
