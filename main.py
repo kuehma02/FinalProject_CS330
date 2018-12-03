@@ -88,7 +88,10 @@ def search():
         all_assignments = []
         for row in assignmentQuery:
             assignment = row.name
-            all_assignments.append(assignment)
+            grade = db_session.query(Grade).filter_by(assignment_id = row.id).first()
+            print(grade)
+            all_assignments.append([assignment, grade.grade])
+            
         print(all_assignments)
         db_session.commit()
         return render_template('results.html', options = options, course = courseInfo, results = all_assignments)
@@ -100,7 +103,10 @@ def add():
         return render_template("addAssignment.html", course_num=course_num)
     name = request.form.get('assignment')
     course_num = request.form.get('courseNum')
-    db_session.add(Assignment(name=name,class_id=course_num))
+    newAssignment =Assignment(name=name,class_id=course_num)
+    db_session.add(newAssignment)
+    db_session.commit()
+    db_session.add(Grade(grade=0, assignment_id = newAssignment.id))
     db_session.commit()
     return redirect(url_for('search', courseNum=course_num))
 
@@ -108,7 +114,6 @@ def add():
 def delete():
     courseNum = request.form.get('course')
     assignmentName = request.form.get('assignmentName')
-
     deleteAssignment = db_session.query(Assignment).filter_by(name=assignmentName, class_id = courseNum).first()
     db_session.delete(deleteAssignment)
     db_session.commit()
