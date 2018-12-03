@@ -39,11 +39,12 @@
             <div id="app">
             <tbody id='maketable'>
                 {% for r in results %}
-                    <tr v-for="(item, i) in items">
+                    <tr > 
+                        <!-- v-for="(item, i) in items" -->
                         <td>{{ r }}</td>
                         <td >
                             <div>
-                                <input type="text" class="form-control" placeholder="Enter Grade" v-model="item.qty">
+                                <input type="text" class="form-control" placeholder="Enter Grade" v-model="grade.qty">
                             </div>
                         </td>
                         <td>
@@ -58,7 +59,7 @@
             </tbody>
 
             <button @click="addItem">Calculate</button>
-            <br> Grade: {{ totalQty }}
+            <br> Grade: {{ totalGrade }}
 
             </div>
         </table>
@@ -77,9 +78,9 @@
   },
 
   computed: {
-    totalQty() {
-        return this.items.reduce((total, item) => {
-          return total + Number(item.qty);
+    totalGrade() {
+        return this.items.reduce((total, grade) => {
+          return total + Number(grade.qty);
         }, 0);
       },
 
