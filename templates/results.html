@@ -37,33 +37,29 @@
                 <th></th>
             </tr>
         </thead>
-        <div>
-            <tbody id='maketable'>
+            <tbody id="app">
                 {% for r in results %}
-                    <tr > 
+                    <tr  > 
                         <td>{{ r[0] }}</td>
-                        <div id=app>
-                            <td>
-                                <div>
-                                    <input type="checkbox" id="edit" v-model="ok">
-                                    <label for="edit">Edit Grade</label>
-                                </div>
-                            </td>
-                            <td>
-                                <div v-if="ok">
-                                    <form action ='/saveGrade' method='POST'>
-                                        <input type="text" class="form-control" name ='newGrade' placeholder="Enter Grade"/>
-                                        <input type='hidden' name='assignmentId' value='{{ r[2] }}'/>
-                                        <input type="hidden" name="course" value='{{course[0]}}'/>
-                                        <button type='submit' class="btn btn-primary">Save Grade</button>
-                                    </form>
-                                </div>
+                        <td>
+                            <div>
+                                <input type="checkbox" id="edit" v-model="ok">
+                                <label for="edit">Edit Grade</label>
+                            </div>
+                        </td>
+                        <td>
                             
-                                <div v-else>
-                                    {{ r[1] }}
-                                </div>
-                            </td>
-                        </div>
+                            <div v-if="ok">
+                                <form action ='/saveGrade' method='POST'>
+                                    <input type="text" class="form-control" name ='newGrade' placeholder="Enter Grade"/>
+                                    <input type='hidden' name='assignmentId' value='{{ r[2] }}'/>
+                                    <input type="hidden" name="course" value='{{course[0]}}'/>
+                                    <button type='submit' class="btn btn-primary">Save Grade</button>
+                            </div>
+                            <div v-else>
+                                {{ r[1] }}
+                            </div>
+                        </td>
                         <td>
                             <form action ='/delete' method='POST'>
                                 <input type="hidden" name="course" value='{{course[0]}}'/>
@@ -81,36 +77,8 @@
     
     
 <script src="https://vuejs.org/js/vue.min.js"></script>
-<script src="../js/results_vue.js"></script>
+<script src="static/js/results_vue.js"></script>
 
-
-<!-- //  new Vue({
-//   el: '#app',
-
-//   data: {
-//     items: []
-//   },
-
-//   computed: {
-//     totalGrade() {
-//         return this.items.reduce((total, item) => {
-//           return total + Number(item.qty);
-//         }, 0);
-//       }, -->
-
-<!-- // created() {
-//     this.addItem();
-// },
-
-// methods: {
-//     addItem() {
-//     this.items.push({
-//         qty: 0,  
-//     });
-//     }
-// }
-// }
-// }); -->
 
 
 {% endblock %}
