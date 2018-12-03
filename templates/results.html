@@ -41,11 +41,14 @@
         <tbody id='maketable'>
             {% for r in results %}
                 <tr > 
-                    <td>{{ r }}</td>
+                    <td>{{ r[0] }}</td>
                     <td >
                         <div>
                             <input type="text" class="form-control" placeholder="Enter Grade">
                         </div>
+                    </td>
+                    <td>
+                        {{ r[1] }}
                     </td>
                     <td>
                         <div>
@@ -56,7 +59,7 @@
                     <td>
                         <form action ='/delete' method='POST'>
                             <input type="hidden" name="course" value='{{course[0]}}'/>
-                            <input type="hidden" name="assignmentName" value='{{r}}' />
+                            <input type="hidden" name="assignmentName" value='{{ r[0] }}' />
                             <button type='submit' class="btn btn-primary">Delete</button>
                         </form>
                     </td>
