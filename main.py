@@ -114,6 +114,10 @@ def delete():
     
     return redirect(url_for('search', courseNum=courseNum))
 
+@app.route('/editGrade', methods=['GET', 'POST'])
+def edit():
+    pass
+
 '''I Think this is the kind of stuff that we have to do for the ajax stuff??'''
 
 # @app.route('/save', methods=['POST'])

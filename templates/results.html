@@ -34,6 +34,7 @@
                     <th>Assignment Name</th>
                     <th>Grade</th>
                     <th></th>
+                    <th></th>
                 </tr>
             </thead>
             <div id="app">
@@ -47,6 +48,7 @@
                                 <input type="text" class="form-control" placeholder="Enter Grade" v-model="grade.qty">
                             </div>
                         </td>
+                        <td><a href="/edit">Edit Grade</a></td>
                         <td>
                             <form action ='/delete' method='POST'>
                                 <input type="hidden" name="course" value='{{course[0]}}'/>
