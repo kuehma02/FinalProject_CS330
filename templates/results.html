@@ -43,13 +43,23 @@
                 <tr > 
                     <td>{{ r }}</td>
                     <td >
-                        <div>
+                        <div v-if="vm.toggle === 'yes">
                             <input type="text" class="form-control" placeholder="Enter Grade">
+                        </div>
+                        <div v-else>
+                            <!-- display grade here -->
                         </div>
                     </td>
                     <td>
                         <div>
-                            <a href="/editGrade">Edit Grade</a>
+                            <label for="edit">Edit Grade</label>
+                            <input
+                            type="checkbox"
+                            value="Edit Grade"
+                            v-model="toggle"
+                            true-value="yes"
+                            false-value="no"
+                            >
                             <br><br>
                             <a href="/saveGrade">Save Grade</a>
                         </div>
@@ -73,23 +83,27 @@
     
     
     
-    <!-- <script src="https://vuejs.org/js/vue.min.js"></script>
+<script src="https://vuejs.org/js/vue.min.js"></script>
     <script>
- new Vue({
-  el: '#app',
 
-  data: {
-    items: []
-  },
+    </script> 
 
-  computed: {
-    totalGrade() {
-        return this.items.reduce((total, item) => {
-          return total + Number(item.qty);
-        }, 0);
-      }, -->
 
-<!-- // created() {
+//  new Vue({
+//   el: '#app',
+
+//   data: {
+//     items: []
+//   },
+
+//   computed: {
+//     totalGrade() {
+//         return this.items.reduce((total, item) => {
+//           return total + Number(item.qty);
+//         }, 0);
+//       }, -->
+
+// created() {
 //     this.addItem();
 // },
 
@@ -100,8 +114,8 @@
 //     });
 //     }
 // }
-}
-}); -->
-    <!-- </script> -->
+// }
+// }); -->
+
 
 {% endblock %}
