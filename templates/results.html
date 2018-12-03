@@ -37,67 +37,33 @@
                 <th></th>
             </tr>
         </thead>
-        <div id="app">
+        <div>
             <tbody id='maketable'>
                 {% for r in results %}
                     <tr > 
                         <td>{{ r[0] }}</td>
-                        <td>
-                            <div>
-                                <label for="edit">Edit Grade</label>
-                                <input
-                                    type="checkbox"
-                                    value="Edit Grade"
-                                    v-model="toggle"
-                                    true-value="yes"
-                                    false-value="no"
-                                >
-                            </div>
-                        </td>
-                        <td>
-                            <div v-if="vm.toggle === 'yes'">
-                                <form action ='/saveGrade' method='POST'>
-                                    <input type="text" class="form-control" name ='newGrade' placeholder="Enter Grade"/>
-                                    <input type='hidden' name='assignmentId' value='{{ r[2] }}'/>
-                                    <input type="hidden" name="course" value='{{course[0]}}'/>
-                                    <button type='submit' class="btn btn-primary">Save Grade</button>
-                                </form>
-                            </div>
-                            <div v-else>
-                                {{ r[1] }}
-                            </div>
-                        </td>
-<<<<<<< HEAD
-                    <td>
-                        <div>
-                            <label for="edit">Edit Grade</label>
-                            <input
-                                type="checkbox"
-                                value="Edit Grade"
-                                v-model="toggle"
-                                true-value="yes"
-                                false-value="no"
-                            >
-                            <br><br>
-                            <a href="/saveGrade">Save Grade</a>
+                        <div id=app>
+                            <td>
+                                <div>
+                                    <input type="checkbox" id="edit" v-model="ok">
+                                    <label for="edit">Edit Grade</label>
+                                </div>
+                            </td>
+                            <td>
+                                <div v-if="ok">
+                                    <form action ='/saveGrade' method='POST'>
+                                        <input type="text" class="form-control" name ='newGrade' placeholder="Enter Grade"/>
+                                        <input type='hidden' name='assignmentId' value='{{ r[2] }}'/>
+                                        <input type="hidden" name="course" value='{{course[0]}}'/>
+                                        <button type='submit' class="btn btn-primary">Save Grade</button>
+                                    </form>
+                                </div>
+                            
+                                <div v-else>
+                                    {{ r[1] }}
+                                </div>
+                            </td>
                         </div>
-                    </td>
-                    
-                    <td>
-                        <form action ='/delete' method='POST'>
-                            <input type="hidden" name="course" value='{{course[0]}}'/>
-                            <input type="hidden" name="assignmentName" value='{{ r[0] }}' />
-                            <button type='submit' class="btn btn-primary">Delete</button>
-                        </form>
-                    </td>
-                </tr>
-            {% endfor %}
-        </tbody>
-
-        <!-- <button @click="addItem">Calculate</button>
-        <br> Grade: {{ totalGrade }} -->
-
-=======
                         <td>
                             <form action ='/delete' method='POST'>
                                 <input type="hidden" name="course" value='{{course[0]}}'/>
@@ -108,7 +74,6 @@
                     </tr>
                 {% endfor %}
             </tbody>
->>>>>>> 440e3aeeaa7cb1320a765c87fd263b4b5107da9f
         </div>
     </table>
 </div>
