@@ -10,6 +10,8 @@ from models import Class, Assignment, Grade
 
 from sqlalchemy.sql import select
 
+import os
+
 init_db()
 
 #Class.__table__.drop(engine)
@@ -42,7 +44,7 @@ db_list = []
 
 # for assign in db_list2:
 #     print(assign[0])
-#     new_assign = Assignment(assign[0], assign[1], assign[2])
+#     new_assign = Assignment(name=assign[0],class_id = assign[1])
 #     db_session.add(new_assign)
 
 #db_session.add(new_class)
@@ -60,6 +62,7 @@ rows = []
 def index():
     all_classes = db_session.query(Class).all()
     options = []
+    db_session.commit()
     for row in all_classes:
         options.append((row.id, row.name))
     
@@ -71,7 +74,7 @@ def index():
         return redirect(url_for('search', courseNum = course))
 
 
-@app.route('/search/', methods=['GET', 'POST'])
+@app.route('/search', methods=['GET'])
 def search():
     courseNum = request.args['courseNum']
     all_classes = db_session.query(Class).all()
@@ -86,17 +89,52 @@ def search():
         assignmentQuery = db_session.query(Assignment).filter_by(class_id = courseNum).all()
         all_assignments = []
         for row in assignmentQuery:
-            assignment = [row.name]
+            assignment = row.name
             all_assignments.append(assignment)
-        
-        return render_template('results.html', options = options, course = courseInfo, results = all_assignments) # (url_for('index')))
+        db_session.commit()
+        return render_template('results.html', options = options, course = courseInfo, results = all_assignments)
+     
+@app.route('/add', methods=['GET', 'POST'])
+def add():
+    if request.method == "GET":
+        course_num = request.args['courseNum']
+        return render_template("addAssignment.html", course_num=course_num)
+    name = request.form.get('assignment')
+    course_num = request.form.get('courseNum')
+    db_session.add(Assignment(name=name,class_id=course_num))
+    db_session.commit()
+    return redirect(url_for('search', courseNum=course_num))
 
+@app.route('/delete', methods=['POST'])
+def delete():
+    courseNum = request.form.get('course')
+    assignmentName = request.form.get('assignmentName')
 
- 
- 
-# @app.route('/')
-# def test():
-#     return "Welcome to Flask!"
+    deleteAssignment = db_session.query(Assignment).filter_by(name=assignmentName, class_id = courseNum).first()
+    db_session.delete(deleteAssignment)
+    db_session.commit()
+    
+    return redirect(url_for('search', courseNum=courseNum))
+
+'''I Think this is the kind of stuff that we have to do for the ajax stuff??'''
+
+# @app.route('/save', methods=['POST'])
+# def save():
+#     with open('file.json', 'wb') as outfile:
+#         outfile.write(request.data)
+#     return "Success"
+
+# @app.route('/get', methods=['GET'])
+# def get():
+#     if os.path.isfile('file.json'):
+#         with open('file.json', 'r') as infile:
+#             data = json.load(infile)
+#         response = jsonify(data)
+#         return response
+#     else:
+#         data = []
+#         response = jsonify(data)
+#         return response
  
 if __name__ == '__main__':
     app.run()

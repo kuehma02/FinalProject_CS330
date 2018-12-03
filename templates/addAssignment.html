@@ -1,27 +1,25 @@
+{% extends "base.html" %}
 
-<html>
-        <head>
-            <link rel="stylesheet" href="static/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        </head>
-        <body>
-            <div class="text-center border-bottom">
-                <h1>Add Assignment</h1>
-            </div>
+{% block content %}
+    <div class='container'>
+        <div class="text-center border-bottom">
+            <h1>Add Assignment</h1>
+        </div>
+    
+        <div class="text-center">
+            <br>
+            <h3>Adding Assignment for {{course_num}}</h3>
+        </div>
 
+        <form action='/add' method='POST'>
             <div class="form-group col-md-4">
                 <label for="assignment">Assignment Name</label>
                 <input type="text" id="assignment" name="assignment" class="form-control">
             </div>
-
-            <div class="form-group col-md-4">
-                <label for="class">Course Id</label>
-                <input type="text" id="courseId" name="courseId" class="form-control">
-            </div>
-
-            <button type="submit" class="btn btn-primary">Add Class</button>
-
-            <script src="static/js/jquery-3.2.1.slim.min.js" integrity="" crossorigin="anonymous"></script>
-            <script src="static/js/popper.min.js" integrity="" crossorigin="anonymous"></script>
-            <script src="static/js/bootstrap.min.js" integrity="" crossorigin="anonymous"></script>
-        </body>
-    </html>
+            <input type="hidden" name="courseNum" value='{{course_num}}' />
+            <button type="submit" class="btn btn-primary">Add</button>
+        </form>
+        
+        
+        
+{% endblock %}
