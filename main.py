@@ -56,8 +56,6 @@ db_list = []
 
 db_session.commit()
 
-rows = []
-
 @app.route('/', methods=['GET', 'POST'])
 def index():
     all_classes = db_session.query(Class).all()
