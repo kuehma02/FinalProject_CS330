@@ -89,6 +89,7 @@ def search():
         for row in assignmentQuery:
             assignment = row.name
             all_assignments.append(assignment)
+        print(all_assignments)
         db_session.commit()
         return render_template('results.html', options = options, course = courseInfo, results = all_assignments)
      
