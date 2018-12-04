@@ -12,8 +12,10 @@
 }
 
 footer {
+    float: left;
     position: absolute;
-    bottom: 0;
+    padding: 15px;
+    bottom: 0px;
     width: 100%;
     background-color: black;
     color: white;
