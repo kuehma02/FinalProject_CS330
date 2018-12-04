@@ -46,13 +46,17 @@ def search():
     if request.method == "GET":
         query = db_session.query(Class).filter_by(id=courseNum).first()
         courseInfo = [query.id, query.name, query.professor, query.time]
+
         assignmentQuery = db_session.query(Assignment).filter_by(class_id = courseNum).all()
         all_assignments = []
         totalPercent = 0
         count = 0
+
         for row in assignmentQuery:
             assignment = row.name
+
             grade = db_session.query(Grade).filter_by(assignment_id=row.id).order_by(Grade.id.desc()).first()
+
             totalPercent += grade.grade
             all_assignments.append([assignment, grade.grade, row.id])
             count += 1
@@ -60,6 +64,7 @@ def search():
             classGrade = 0
         else:
             classGrade = totalPercent / count
+
         db_session.commit()
         return render_template('results.html', options = options, course = courseInfo, grade = "{:.2f}".format(classGrade), results = all_assignments)
      
@@ -68,6 +73,7 @@ def add():
     if request.method == "GET":
         course_num = request.args['courseNum']
         return render_template("addAssignment.html", course_num=course_num)
+    
     name = request.form.get('assignment')
     course_num = request.form.get('courseNum')
     newAssignment =Assignment(name=name,class_id=course_num)

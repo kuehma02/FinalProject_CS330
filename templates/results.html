@@ -46,7 +46,7 @@
                             <form action ='/saveGrade' method='POST'>
                                 <input type="text" class="form-control" name ='newGrade' placeholder="Enter Grade"/>
                                 <input type='hidden' name='assignmentId' value='{{ r[2] }}'/>
-                                <input type="hidden" name="course" value='{{course[0]}}'/>
+                                <input type="hidden" name="course" value='{{ course[0] }}'/>
                                 <button type='submit' class="btn btn-primary">Save Grade</button>
                             </form>   
                         </td>
